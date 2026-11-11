@@ -1,0 +1,18 @@
+{
+  "name": "@transmitly/sdk",
+  "version": "1.1.0",
+  "description": "Node.js client for the Transmitly email API",
+  "type": "module",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js"
+    }
+  },
+  "engines": { "node": ">=18" },
+  "files": ["index.js", "index.d.ts", "README.md"],
+  "license": "MIT",
+  "keywords": ["email", "transactional", "smtp", "webhooks"]
+}

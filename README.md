@@ -43,6 +43,8 @@ await tx.events.list({ limit: 50 });
 ```
 
 Domain, webhook and inbound management require an API key with the `admin` scope.
+Inbound routes accept `forward`, `relay`, `relay_webhook`, `webhook` or `drop`;
+`relay_webhook` relays transparently and also emits `email.inbound`.
 
 ## Webhooks
 

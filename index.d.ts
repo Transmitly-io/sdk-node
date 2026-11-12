@@ -68,7 +68,7 @@ export interface WebhookInput {
 
 export interface InboundRouteInput {
   address: string;
-  action: "forward" | "relay" | "webhook" | "drop";
+  action: "forward" | "relay" | "relay_webhook" | "webhook" | "drop";
   destination?: string;
   note?: string;
 }

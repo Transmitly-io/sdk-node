@@ -106,6 +106,38 @@ export interface SendingIP {
   reputation: Record<string, unknown>;
 }
 
+export interface DedicatedEligibility {
+  eligible: boolean;
+  reasons: string[];
+  plan: string;
+  plan_name: string;
+  allowance: number;
+  assignments: number;
+  available_ips: number;
+  monthly_volume: number;
+  minimum_volume: number;
+  org_age_days: number;
+  minimum_age_days: number;
+  bounce_rate: number;
+  complaint_rate: number;
+  active_domains: number;
+  pending_request: boolean;
+  billing_configured: boolean;
+  subscription_ready: boolean;
+}
+
+export interface DedicatedIPRequest {
+  id: string;
+  org_id: string;
+  org_name: string;
+  stream: "transactional" | "marketing";
+  status: "pending" | "approved" | "rejected" | "cancelled";
+  reason: string;
+  assignment_id: string;
+  created_at: string;
+  reviewed_at: string | null;
+}
+
 export type DedicatedAssignmentStatus = "warming" | "active" | "paused" | "released";
 
 export interface DedicatedAssignment {
@@ -288,6 +320,10 @@ export class Transmitly {
     update(id: string, input: Partial<ContactInput> & { unsubscribed?: boolean }): Promise<{ contact: unknown }>;
     remove(id: string): Promise<unknown>;
     import(audienceId: string, csv: string): Promise<{ imported: number; skipped: number }>;
+  };
+  dedicatedIPs: {
+    get(): Promise<{ eligibility: DedicatedEligibility; assignments: DedicatedAssignment[]; requests: DedicatedIPRequest[] }>;
+    request(input: { stream?: "transactional" | "marketing"; reason?: string }): Promise<{ request: DedicatedIPRequest }>;
   };
   deliverability: {
     audit(): Promise<unknown>;

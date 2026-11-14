@@ -83,6 +83,10 @@ export class Transmitly {
       remove: async (id) => this.#request("DELETE", `/v1/contacts/${encodeURIComponent(id)}`),
       import: async (audienceId, csv) => this.#request("POST", "/v1/contacts/import", { body: { audience_id: audienceId, csv } }),
     };
+    this.dedicatedIPs = {
+      get: async () => this.#request("GET", "/v1/dedicated-ips"),
+      request: async (input) => this.#request("POST", "/v1/dedicated-ips/requests", { body: input }),
+    };
     this.deliverability = {
       audit: async () => this.#request("GET", "/v1/deliverability/audit"),
       refreshBlocklists: async () => this.#request("POST", "/v1/deliverability/blocklists/refresh", { body: {} }),

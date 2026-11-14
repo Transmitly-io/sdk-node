@@ -81,6 +81,9 @@ export class Transmitly {
       remove: async (id) => this.#request("DELETE", `/v1/contacts/${encodeURIComponent(id)}`),
       import: async (audienceId, csv) => this.#request("POST", "/v1/contacts/import", { body: { audience_id: audienceId, csv } }),
     };
+    this.mta = {
+      nodes: async () => this.#request("GET", "/v1/mta/nodes"),
+    };
     this.broadcasts = {
       list: async () => this.#request("GET", "/v1/broadcasts"),
       create: async (input) => this.#request("POST", "/v1/broadcasts", { body: input }),

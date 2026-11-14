@@ -60,6 +60,10 @@ await tx.audiences.create({ name: "Product updates" });
 await tx.contacts.import(audienceId, "email,name\nada@example.net,Ada");
 await tx.contacts.list({ audience: audienceId, q: "ada" });
 
+// Delivery inventory and health
+const inventory = await tx.mta.nodes();
+console.log(inventory.nodes.map((n) => `${n.name}:${n.status}`));
+
 // Broadcasts
 const draft = await tx.broadcasts.create({
   name: "November update",

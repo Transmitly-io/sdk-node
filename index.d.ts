@@ -87,6 +87,35 @@ export interface ContactInput {
 
 export type BroadcastStatus = "draft" | "scheduled" | "sending" | "sent" | "cancelled" | "failed";
 
+export interface SendingIP {
+  id: string;
+  node_id: string;
+  pool_id: string;
+  ip: string;
+  hostname: string;
+  expected_ptr: string;
+  provider: string;
+  ptr_verified: boolean;
+  spf_verified: boolean;
+  status: "active" | "warming" | "paused" | "quarantined";
+  last_checked_at: string | null;
+  checks: Record<string, unknown>;
+  reputation: Record<string, unknown>;
+}
+
+export interface MTANode {
+  id: string;
+  name: string;
+  hostname: string;
+  provider: string;
+  endpoint: string;
+  enabled: boolean;
+  status: "ok" | "degraded" | "unreachable" | "unknown" | "disabled";
+  ips: SendingIP[];
+  created_at: string;
+  updated_at: string;
+}
+
 export interface BroadcastInput {
   name: string;
   from: string;
@@ -224,6 +253,9 @@ export class Transmitly {
     update(id: string, input: Partial<ContactInput> & { unsubscribed?: boolean }): Promise<{ contact: unknown }>;
     remove(id: string): Promise<unknown>;
     import(audienceId: string, csv: string): Promise<{ imported: number; skipped: number }>;
+  };
+  mta: {
+    nodes(): Promise<{ nodes: MTANode[]; checks: unknown; heartbeats: unknown; ok: boolean; checked_at: string }>;
   };
   broadcasts: {
     list(): Promise<{ broadcasts: Broadcast[] }>;

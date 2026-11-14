@@ -284,6 +284,10 @@ export class Transmitly {
     remove(id: string): Promise<unknown>;
     import(audienceId: string, csv: string): Promise<{ imported: number; skipped: number }>;
   };
+  deliverability: {
+    audit(): Promise<unknown>;
+    refreshBlocklists(): Promise<unknown>;
+  };
   mta: {
     nodes(): Promise<{ nodes: MTANode[]; checks: unknown; heartbeats: unknown; ok: boolean; checked_at: string }>;
     assignments: {

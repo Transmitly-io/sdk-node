@@ -60,6 +60,11 @@ await tx.audiences.create({ name: "Product updates" });
 await tx.contacts.import(audienceId, "email,name\nada@example.net,Ada");
 await tx.contacts.list({ audience: audienceId, q: "ada" });
 
+// Deliverability audit and blocklists
+await tx.domains.audit(domainId);
+await tx.deliverability.audit();
+await tx.deliverability.refreshBlocklists();
+
 // Delivery inventory and health
 const inventory = await tx.mta.nodes();
 console.log(inventory.nodes.map((n) => `${n.name}:${n.status}`));

@@ -67,6 +67,20 @@ export class Transmitly {
     this.events = {
       list: (params = {}) => this.#request("GET", "/v1/events", { query: params }),
     };
+    this.audiences = {
+      list: async () => this.#request("GET", "/v1/audiences"),
+      create: async (input) => this.#request("POST", "/v1/audiences", { body: input }),
+      get: async (id) => this.#request("GET", `/v1/audiences/${encodeURIComponent(id)}`),
+      remove: async (id) => this.#request("DELETE", `/v1/audiences/${encodeURIComponent(id)}`),
+    };
+    this.contacts = {
+      list: (params = {}) => this.#request("GET", "/v1/contacts", { query: params }),
+      create: async (input) => this.#request("POST", "/v1/contacts", { body: input }),
+      get: async (id) => this.#request("GET", `/v1/contacts/${encodeURIComponent(id)}`),
+      update: async (id, input) => this.#request("PATCH", `/v1/contacts/${encodeURIComponent(id)}`, { body: input }),
+      remove: async (id) => this.#request("DELETE", `/v1/contacts/${encodeURIComponent(id)}`),
+      import: async (audienceId, csv) => this.#request("POST", "/v1/contacts/import", { body: { audience_id: audienceId, csv } }),
+    };
     this.templates = {
       list: async () => this.#request("GET", "/v1/templates"),
       create: async (input) => this.#request("POST", "/v1/templates", { body: input }),

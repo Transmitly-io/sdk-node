@@ -55,6 +55,11 @@ await tx.emails.send({
   test_mode: true,
 });
 
+// Contacts and audiences
+await tx.audiences.create({ name: "Product updates" });
+await tx.contacts.import(audienceId, "email,name\nada@example.net,Ada");
+await tx.contacts.list({ audience: audienceId, q: "ada" });
+
 // Inboxes
 await tx.inboxes.list();
 await tx.inboxes.create({ address: "support@mail.acme.com", name: "Support", from_name: "Ada from Support" });

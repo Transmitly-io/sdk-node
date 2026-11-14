@@ -77,6 +77,14 @@ export interface InboundRouteInput {
   note?: string;
 }
 
+export interface AudienceInput { name: string; description?: string }
+export interface ContactInput {
+  email: string;
+  name?: string;
+  audience_id?: string;
+  attributes?: Record<string, string>;
+}
+
 export interface TemplateInput {
   name: string;
   subject?: string;
@@ -162,6 +170,20 @@ export class Transmitly {
   };
   usage: { get(params?: { days?: number }): Promise<unknown> };
   events: { list(params?: { limit?: number }): Promise<unknown> };
+  audiences: {
+    list(): Promise<{ audiences: unknown[] }>;
+    create(input: AudienceInput): Promise<{ audience: unknown }>;
+    get(id: string): Promise<{ audience: unknown }>;
+    remove(id: string): Promise<unknown>;
+  };
+  contacts: {
+    list(params?: { audience?: string; q?: string; limit?: number; offset?: number }): Promise<{ contacts: unknown[]; total: number }>;
+    create(input: ContactInput): Promise<{ contact: unknown }>;
+    get(id: string): Promise<{ contact: unknown }>;
+    update(id: string, input: Partial<ContactInput> & { unsubscribed?: boolean }): Promise<{ contact: unknown }>;
+    remove(id: string): Promise<unknown>;
+    import(audienceId: string, csv: string): Promise<{ imported: number; skipped: number }>;
+  };
   templates: {
     list(): Promise<{ templates: unknown[] }>;
     create(input: TemplateInput): Promise<{ template: unknown }>;

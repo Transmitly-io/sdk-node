@@ -48,6 +48,7 @@ export interface Delivery {
 export interface Message {
   id: string;
   stream: string;
+  source: string;
   from: string;
   subject: string;
   status: string;

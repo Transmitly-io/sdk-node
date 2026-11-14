@@ -41,6 +41,8 @@ export class Transmitly {
       create: async (domain) => this.#request("POST", "/v1/domains", { body: { domain } }),
       verify: async (id) => this.#request("POST", `/v1/domains/${encodeURIComponent(id)}/verify`),
       setStatus: async (id, status) => this.#request("POST", `/v1/domains/${encodeURIComponent(id)}/status`, { body: { status } }),
+      audit: async (id) => this.#request("GET", `/v1/domains/${encodeURIComponent(id)}/audit`),
+      dmarc: async (id) => this.#request("GET", `/v1/domains/${encodeURIComponent(id)}/dmarc`),
       remove: async (id) => this.#request("DELETE", `/v1/domains/${encodeURIComponent(id)}`),
     };
     this.suppressions = {

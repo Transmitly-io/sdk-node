@@ -251,6 +251,8 @@ export class Transmitly {
     create(domain: string): Promise<unknown>;
     verify(id: string): Promise<unknown>;
     setStatus(id: string, status: "ACTIVE" | "SUSPENDED" | "PENDING"): Promise<unknown>;
+    audit(id: string): Promise<unknown>;
+    dmarc(id: string): Promise<unknown>;
     remove(id: string): Promise<unknown>;
   };
   suppressions: {

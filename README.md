@@ -40,6 +40,12 @@ await tx.webhooks.create({ url: "https://api.acme.com/hooks", events: ["email.de
 await tx.inbound.routes();
 await tx.usage.get();
 await tx.events.list({ limit: 50 });
+
+// Inboxes
+await tx.inboxes.list();
+await tx.inboxes.create({ address: "support@mail.acme.com", name: "Support", from_name: "Ada from Support" });
+await tx.inboxes.thread(inboxId, threadId);
+await tx.inboxes.reply(inboxId, threadId, { text: "Thanks — we are looking into it." });
 ```
 
 Domain, webhook and inbound management require an API key with the `admin` scope.

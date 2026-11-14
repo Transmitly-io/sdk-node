@@ -73,6 +73,18 @@ export interface InboundRouteInput {
   note?: string;
 }
 
+export interface InboxInput {
+  address: string;
+  name?: string;
+  from_name?: string;
+}
+
+export interface InboxReplyInput {
+  html?: string;
+  text?: string;
+  from_name?: string;
+}
+
 export interface Plan {
   id: string;
   name: string;
@@ -132,6 +144,15 @@ export class Transmitly {
   };
   usage: { get(params?: { days?: number }): Promise<unknown> };
   events: { list(params?: { limit?: number }): Promise<unknown> };
+  inboxes: {
+    list(): Promise<{ inboxes: unknown[] }>;
+    create(input: InboxInput): Promise<{ inbox: unknown }>;
+    get(id: string): Promise<unknown>;
+    remove(id: string): Promise<unknown>;
+    thread(id: string, threadId: string): Promise<unknown>;
+    reply(id: string, threadId: string, input: InboxReplyInput): Promise<{ message: unknown }>;
+    markRead(id: string, threadId: string): Promise<unknown>;
+  };
   health(): Promise<unknown>;
 
   static verifyWebhook(rawBody: string | Buffer, signatureHeader: string, secret: string, toleranceSeconds?: number): boolean;

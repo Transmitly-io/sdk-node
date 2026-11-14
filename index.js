@@ -67,6 +67,15 @@ export class Transmitly {
     this.events = {
       list: (params = {}) => this.#request("GET", "/v1/events", { query: params }),
     };
+    this.inboxes = {
+      list: async () => this.#request("GET", "/v1/inboxes"),
+      create: async (input) => this.#request("POST", "/v1/inboxes", { body: input }),
+      get: async (id) => this.#request("GET", `/v1/inboxes/${encodeURIComponent(id)}`),
+      remove: async (id) => this.#request("DELETE", `/v1/inboxes/${encodeURIComponent(id)}`),
+      thread: async (id, threadId) => this.#request("GET", `/v1/inboxes/${encodeURIComponent(id)}/threads/${encodeURIComponent(threadId)}`),
+      reply: async (id, threadId, input) => this.#request("POST", `/v1/inboxes/${encodeURIComponent(id)}/threads/${encodeURIComponent(threadId)}/reply`, { body: input }),
+      markRead: async (id, threadId) => this.#request("PATCH", `/v1/inboxes/${encodeURIComponent(id)}/threads/${encodeURIComponent(threadId)}`, { body: { read: true } }),
+    };
     this.health = async () => this.#request("GET", "/v1/health", { auth: false });
   }
 

@@ -103,6 +103,36 @@ export interface SendingIP {
   reputation: Record<string, unknown>;
 }
 
+export type DedicatedAssignmentStatus = "warming" | "active" | "paused" | "released";
+
+export interface DedicatedAssignment {
+  id: string;
+  sending_ip_id: string;
+  ip: string;
+  hostname: string;
+  node_id: string;
+  node_name: string;
+  endpoint: string;
+  source_name: string;
+  org_id: string;
+  org_name: string;
+  stream: "transactional" | "marketing";
+  status: DedicatedAssignmentStatus;
+  warmup_started_at: string;
+  warmup_days: number;
+  warmup_day: number;
+  daily_limit: number;
+  sent_today: number;
+  last_reset: string;
+  assigned_at: string;
+  released_at: string | null;
+  created_at: string;
+  sent_24h: number;
+  delivered_24h: number;
+  bounced_24h: number;
+  complained_24h: number;
+}
+
 export interface MTANode {
   id: string;
   name: string;
@@ -256,6 +286,11 @@ export class Transmitly {
   };
   mta: {
     nodes(): Promise<{ nodes: MTANode[]; checks: unknown; heartbeats: unknown; ok: boolean; checked_at: string }>;
+    assignments: {
+      list(): Promise<{ assignments: DedicatedAssignment[] }>;
+      create(input: { sending_ip_id: string; stream?: "transactional" | "marketing"; warmup_days?: number }): Promise<{ assignment: DedicatedAssignment }>;
+      remove(id: string): Promise<unknown>;
+    };
   };
   broadcasts: {
     list(): Promise<{ broadcasts: Broadcast[] }>;

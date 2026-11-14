@@ -64,6 +64,11 @@ await tx.contacts.list({ audience: audienceId, q: "ada" });
 const inventory = await tx.mta.nodes();
 console.log(inventory.nodes.map((n) => `${n.name}:${n.status}`));
 
+// Dedicated IP assignments (platform admin)
+await tx.mta.assignments.list();
+await tx.mta.assignments.create({ sending_ip_id: "sip_…", stream: "marketing", warmup_days: 10 });
+await tx.mta.assignments.remove(assignmentId);
+
 // Broadcasts
 const draft = await tx.broadcasts.create({
   name: "November update",

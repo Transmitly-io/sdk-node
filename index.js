@@ -83,6 +83,11 @@ export class Transmitly {
     };
     this.mta = {
       nodes: async () => this.#request("GET", "/v1/mta/nodes"),
+      assignments: {
+        list: async () => this.#request("GET", "/v1/mta/assignments"),
+        create: async (input) => this.#request("POST", "/v1/mta/assignments", { body: input }),
+        remove: async (id) => this.#request("DELETE", `/v1/mta/assignments/${encodeURIComponent(id)}`),
+      },
     };
     this.broadcasts = {
       list: async () => this.#request("GET", "/v1/broadcasts"),

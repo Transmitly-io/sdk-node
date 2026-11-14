@@ -29,5 +29,16 @@
   "scripts": {
     "test": "node --test test.mjs",
     "pack:check": "npm pack --dry-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Transmitly-io/sdk-node.git"
+  },
+  "homepage": "https://transmitly.io/docs",
+  "bugs": {
+    "url": "https://github.com/Transmitly-io/sdk-node/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

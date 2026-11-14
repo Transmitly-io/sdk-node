@@ -345,6 +345,7 @@ export class Transmitly {
     update(id: string, input: BroadcastInput): Promise<{ broadcast: Broadcast }>;
     remove(id: string): Promise<unknown>;
     send(id: string, input?: { scheduled_at?: string }): Promise<{ broadcast: Broadcast }>;
+    test(id: string, to: string): Promise<{ id: string; status: string; to: string }>;
     cancel(id: string): Promise<unknown>;
   };
   templates: {

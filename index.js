@@ -107,6 +107,7 @@ export class Transmitly {
       update: async (id, input) => this.#request("PATCH", `/v1/broadcasts/${encodeURIComponent(id)}`, { body: input }),
       remove: async (id) => this.#request("DELETE", `/v1/broadcasts/${encodeURIComponent(id)}`),
       send: async (id, input = {}) => this.#request("POST", `/v1/broadcasts/${encodeURIComponent(id)}/send`, { body: input }),
+      test: async (id, to) => this.#request("POST", `/v1/broadcasts/${encodeURIComponent(id)}/test`, { body: { to } }),
       cancel: async (id) => this.#request("POST", `/v1/broadcasts/${encodeURIComponent(id)}/cancel`, { body: {} }),
     };
     this.templates = {

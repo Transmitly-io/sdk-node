@@ -83,6 +83,7 @@ const draft = await tx.broadcasts.create({
   html: "<p>Hi {{name}}</p>",
 });
 await tx.broadcasts.send(draft.broadcast.id); // or { scheduled_at: "2026-11-20T09:00:00Z" }
+await tx.broadcasts.test(draft.broadcast.id, "you@example.com");
 await tx.broadcasts.get(draft.broadcast.id);
 
 // Inboxes

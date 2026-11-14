@@ -60,6 +60,17 @@ await tx.audiences.create({ name: "Product updates" });
 await tx.contacts.import(audienceId, "email,name\nada@example.net,Ada");
 await tx.contacts.list({ audience: audienceId, q: "ada" });
 
+// Broadcasts
+const draft = await tx.broadcasts.create({
+  name: "November update",
+  audience_id: audienceId,
+  from: "news@example.com",
+  subject: "What's new",
+  html: "<p>Hi {{name}}</p>",
+});
+await tx.broadcasts.send(draft.broadcast.id); // or { scheduled_at: "2026-11-20T09:00:00Z" }
+await tx.broadcasts.get(draft.broadcast.id);
+
 // Inboxes
 await tx.inboxes.list();
 await tx.inboxes.create({ address: "support@mail.acme.com", name: "Support", from_name: "Ada from Support" });

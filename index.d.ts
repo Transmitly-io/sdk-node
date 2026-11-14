@@ -85,6 +85,47 @@ export interface ContactInput {
   attributes?: Record<string, string>;
 }
 
+export type BroadcastStatus = "draft" | "scheduled" | "sending" | "sent" | "cancelled" | "failed";
+
+export interface BroadcastInput {
+  name: string;
+  from: string;
+  audience_id?: string;
+  template_id?: string;
+  from_name?: string;
+  subject?: string;
+  html?: string;
+  text?: string;
+}
+
+export interface BroadcastRecipient {
+  id: string;
+  email: string;
+  status: "pending" | "processing" | "queued" | "skipped" | "failed";
+  message_id: string;
+  error: string;
+  updated_at: string;
+}
+
+export interface Broadcast {
+  id: string;
+  name: string;
+  audience_id: string;
+  audience_name: string;
+  template_id: string;
+  from_email: string;
+  from_name: string;
+  subject: string;
+  status: BroadcastStatus;
+  scheduled_at: string | null;
+  started_at: string | null;
+  completed_at: string | null;
+  recipients: number;
+  queued: number;
+  skipped: number;
+  failed: number;
+}
+
 export interface TemplateInput {
   name: string;
   subject?: string;
@@ -183,6 +224,15 @@ export class Transmitly {
     update(id: string, input: Partial<ContactInput> & { unsubscribed?: boolean }): Promise<{ contact: unknown }>;
     remove(id: string): Promise<unknown>;
     import(audienceId: string, csv: string): Promise<{ imported: number; skipped: number }>;
+  };
+  broadcasts: {
+    list(): Promise<{ broadcasts: Broadcast[] }>;
+    create(input: BroadcastInput): Promise<{ broadcast: Broadcast }>;
+    get(id: string): Promise<{ broadcast: Broadcast; recipients: BroadcastRecipient[] }>;
+    update(id: string, input: BroadcastInput): Promise<{ broadcast: Broadcast }>;
+    remove(id: string): Promise<unknown>;
+    send(id: string, input?: { scheduled_at?: string }): Promise<{ broadcast: Broadcast }>;
+    cancel(id: string): Promise<unknown>;
   };
   templates: {
     list(): Promise<{ templates: unknown[] }>;

@@ -87,6 +87,7 @@ export class Transmitly {
     };
     this.mta = {
       nodes: async () => this.#request("GET", "/v1/mta/nodes"),
+      updateIP: async (id, input) => this.#request("PATCH", `/v1/mta/ips/${encodeURIComponent(id)}`, { body: input }),
       assignments: {
         list: async () => this.#request("GET", "/v1/mta/assignments"),
         create: async (input) => this.#request("POST", "/v1/mta/assignments", { body: input }),

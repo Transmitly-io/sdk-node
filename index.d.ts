@@ -98,6 +98,9 @@ export interface SendingIP {
   ptr_verified: boolean;
   spf_verified: boolean;
   status: "active" | "warming" | "paused" | "quarantined";
+  pool_weight: number;
+  attempts_24h: number;
+  deferred_24h: number;
   last_checked_at: string | null;
   checks: Record<string, unknown>;
   reputation: Record<string, unknown>;
@@ -290,6 +293,7 @@ export class Transmitly {
   };
   mta: {
     nodes(): Promise<{ nodes: MTANode[]; checks: unknown; heartbeats: unknown; ok: boolean; checked_at: string }>;
+    updateIP(id: string, input: { pool_weight?: number; status?: "active" | "warming" | "paused" | "quarantined" }): Promise<{ ip: SendingIP }>;
     assignments: {
       list(): Promise<{ assignments: DedicatedAssignment[] }>;
       create(input: { sending_ip_id: string; stream?: "transactional" | "marketing"; warmup_days?: number }): Promise<{ assignment: DedicatedAssignment }>;

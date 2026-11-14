@@ -85,6 +85,13 @@ export interface InboxReplyInput {
   from_name?: string;
 }
 
+export interface InboxThreadUpdate {
+  read?: boolean;
+  status?: "open" | "archived";
+  assignee_id?: string;
+  labels?: string[];
+}
+
 export interface Plan {
   id: string;
   name: string;
@@ -152,6 +159,7 @@ export class Transmitly {
     thread(id: string, threadId: string): Promise<unknown>;
     reply(id: string, threadId: string, input: InboxReplyInput): Promise<{ message: unknown }>;
     markRead(id: string, threadId: string): Promise<unknown>;
+    updateThread(id: string, threadId: string, input: InboxThreadUpdate): Promise<unknown>;
   };
   health(): Promise<unknown>;
 

@@ -75,6 +75,7 @@ export class Transmitly {
       thread: async (id, threadId) => this.#request("GET", `/v1/inboxes/${encodeURIComponent(id)}/threads/${encodeURIComponent(threadId)}`),
       reply: async (id, threadId, input) => this.#request("POST", `/v1/inboxes/${encodeURIComponent(id)}/threads/${encodeURIComponent(threadId)}/reply`, { body: input }),
       markRead: async (id, threadId) => this.#request("PATCH", `/v1/inboxes/${encodeURIComponent(id)}/threads/${encodeURIComponent(threadId)}`, { body: { read: true } }),
+      updateThread: async (id, threadId, input) => this.#request("PATCH", `/v1/inboxes/${encodeURIComponent(id)}/threads/${encodeURIComponent(threadId)}`, { body: input }),
     };
     this.health = async () => this.#request("GET", "/v1/health", { auth: false });
   }

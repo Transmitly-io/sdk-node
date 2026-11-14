@@ -41,6 +41,20 @@ await tx.inbound.routes();
 await tx.usage.get();
 await tx.events.list({ limit: 50 });
 
+// Templates and test mode
+const { template } = await tx.templates.create({
+  name: "Welcome",
+  subject: "Welcome, {{name}}",
+  html: "<p>Hello {{name}}</p>",
+});
+await tx.emails.send({
+  from: "Notify <notify@mail.acme.com>",
+  to: ["ada@example.net"],
+  template_id: template.id,
+  template_data: { name: "Ada" },
+  test_mode: true,
+});
+
 // Inboxes
 await tx.inboxes.list();
 await tx.inboxes.create({ address: "support@mail.acme.com", name: "Support", from_name: "Ada from Support" });

@@ -20,6 +20,9 @@ export interface EmailInput {
   stream?: "transactional" | "marketing";
   tags?: Record<string, string>;
   headers?: Record<string, string>;
+  template_id?: string;
+  template_data?: Record<string, string>;
+  test_mode?: boolean;
 }
 
 export interface EmailAccepted {
@@ -71,6 +74,13 @@ export interface InboundRouteInput {
   action: "forward" | "relay" | "webhook" | "drop";
   destination?: string;
   note?: string;
+}
+
+export interface TemplateInput {
+  name: string;
+  subject?: string;
+  html?: string;
+  text?: string;
 }
 
 export interface InboxInput {
@@ -151,6 +161,13 @@ export class Transmitly {
   };
   usage: { get(params?: { days?: number }): Promise<unknown> };
   events: { list(params?: { limit?: number }): Promise<unknown> };
+  templates: {
+    list(): Promise<{ templates: unknown[] }>;
+    create(input: TemplateInput): Promise<{ template: unknown }>;
+    get(id: string): Promise<{ template: unknown }>;
+    update(id: string, input: TemplateInput): Promise<{ template: unknown }>;
+    remove(id: string): Promise<unknown>;
+  };
   inboxes: {
     list(): Promise<{ inboxes: unknown[] }>;
     create(input: InboxInput): Promise<{ inbox: unknown }>;

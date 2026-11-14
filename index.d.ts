@@ -341,7 +341,7 @@ export class Transmitly {
   broadcasts: {
     list(): Promise<{ broadcasts: Broadcast[] }>;
     create(input: BroadcastInput): Promise<{ broadcast: Broadcast }>;
-    get(id: string): Promise<{ broadcast: Broadcast; recipients: BroadcastRecipient[] }>;
+    get(id: string): Promise<{ broadcast: Broadcast; recipients: BroadcastRecipient[]; analytics: unknown }>;
     update(id: string, input: BroadcastInput): Promise<{ broadcast: Broadcast }>;
     remove(id: string): Promise<unknown>;
     send(id: string, input?: { scheduled_at?: string }): Promise<{ broadcast: Broadcast }>;

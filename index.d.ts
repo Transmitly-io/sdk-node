@@ -190,6 +190,8 @@ export interface BroadcastInput {
   subject?: string;
   html?: string;
   text?: string;
+  track_opens?: boolean;
+  track_clicks?: boolean;
 }
 
 export interface BroadcastRecipient {
@@ -211,6 +213,8 @@ export interface Broadcast {
   from_name: string;
   subject: string;
   status: BroadcastStatus;
+  track_opens: boolean;
+  track_clicks: boolean;
   scheduled_at: string | null;
   started_at: string | null;
   completed_at: string | null;

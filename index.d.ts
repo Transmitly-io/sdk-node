@@ -212,6 +212,18 @@ export interface SegmentFilters {
   include_unsubscribed?: boolean;
 }
 
+export interface Audience {
+  id: string;
+  org_id: string;
+  name: string;
+  description: string;
+  double_opt_in: boolean;
+  confirmation_from: string;
+  contacts: number;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface Segment {
   id: string;
   org_id: string;

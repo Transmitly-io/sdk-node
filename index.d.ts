@@ -196,6 +196,10 @@ export interface BroadcastInput {
   variant_b_html?: string;
   variant_b_text?: string;
   variant_split_percent?: number;
+  variant_c_subject?: string;
+  variant_c_html?: string;
+  variant_c_text?: string;
+  variant_c_split_percent?: number;
   segment_id?: string;
   topic?: string;
   winner_enabled?: boolean;
@@ -337,6 +341,10 @@ export interface Broadcast {
   variant_b_html: string;
   variant_b_text: string;
   variant_split_percent: number;
+  variant_c_subject: string;
+  variant_c_html: string;
+  variant_c_text: string;
+  variant_c_split_percent: number;
   winner_enabled: boolean;
   winner_metric: "open" | "click";
   winner_wait_minutes: number;

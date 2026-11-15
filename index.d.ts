@@ -232,6 +232,8 @@ export interface Automation {
   from_email: string;
   from_name: string;
   topic: string;
+  trigger: "audience_join" | "link_clicked";
+  trigger_url: string;
   status: "draft" | "active" | "paused";
   steps: AutomationStep[];
   enrolled: number;
@@ -248,6 +250,8 @@ export interface AutomationInput {
   from: string;
   from_name?: string;
   topic?: string;
+  trigger?: "audience_join" | "link_clicked";
+  trigger_url?: string;
   steps: AutomationStep[];
 }
 

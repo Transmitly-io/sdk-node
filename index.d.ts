@@ -204,6 +204,13 @@ export interface BroadcastInput {
   winner_test_percent?: number;
 }
 
+export interface StepCondition {
+  attribute_key?: string;
+  attribute_value?: string;
+  opened_within_days?: number;
+  clicked_within_days?: number;
+}
+
 export interface AutomationStep {
   id?: string;
   position?: number;
@@ -213,6 +220,7 @@ export interface AutomationStep {
   html?: string;
   text?: string;
   template_id?: string;
+  condition?: StepCondition;
 }
 
 export interface Automation {

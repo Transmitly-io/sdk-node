@@ -214,13 +214,15 @@ export interface StepCondition {
 export interface AutomationStep {
   id?: string;
   position?: number;
-  kind: "wait" | "send";
+  kind: "wait" | "send" | "route";
   delay_minutes: number;
   subject?: string;
   html?: string;
   text?: string;
   template_id?: string;
   condition?: StepCondition;
+  on_match_automation_id?: string;
+  on_miss_automation_id?: string;
 }
 
 export interface Automation {

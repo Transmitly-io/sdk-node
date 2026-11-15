@@ -192,12 +192,28 @@ export interface BroadcastInput {
   text?: string;
   track_opens?: boolean;
   track_clicks?: boolean;
+  variant_b_subject?: string;
+  variant_b_html?: string;
+  variant_b_text?: string;
+  variant_split_percent?: number;
+}
+
+export interface BroadcastVariantAnalytics {
+  variant: "a" | "b";
+  recipients: number;
+  delivered: number;
+  bounced: number;
+  opens: number;
+  unique_opens: number;
+  clicks: number;
+  unique_clicks: number;
 }
 
 export interface BroadcastRecipient {
   id: string;
   email: string;
   status: "pending" | "processing" | "queued" | "skipped" | "failed";
+  variant: "a" | "b";
   message_id: string;
   error: string;
   updated_at: string;
@@ -215,6 +231,10 @@ export interface Broadcast {
   status: BroadcastStatus;
   track_opens: boolean;
   track_clicks: boolean;
+  variant_b_subject: string;
+  variant_b_html: string;
+  variant_b_text: string;
+  variant_split_percent: number;
   scheduled_at: string | null;
   started_at: string | null;
   completed_at: string | null;

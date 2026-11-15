@@ -196,6 +196,10 @@ export interface BroadcastInput {
   variant_b_html?: string;
   variant_b_text?: string;
   variant_split_percent?: number;
+  winner_enabled?: boolean;
+  winner_metric?: "open" | "click";
+  winner_wait_minutes?: number;
+  winner_test_percent?: number;
 }
 
 export interface BroadcastVariantAnalytics {
@@ -214,6 +218,7 @@ export interface BroadcastRecipient {
   email: string;
   status: "pending" | "processing" | "queued" | "skipped" | "failed";
   variant: "a" | "b";
+  phase: "send" | "test" | "remainder";
   message_id: string;
   error: string;
   updated_at: string;
@@ -235,6 +240,12 @@ export interface Broadcast {
   variant_b_html: string;
   variant_b_text: string;
   variant_split_percent: number;
+  winner_enabled: boolean;
+  winner_metric: "open" | "click";
+  winner_wait_minutes: number;
+  winner_test_percent: number;
+  winner_variant: "" | "a" | "b";
+  winner_selected_at: string | null;
   scheduled_at: string | null;
   started_at: string | null;
   completed_at: string | null;

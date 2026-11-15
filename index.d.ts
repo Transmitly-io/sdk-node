@@ -204,6 +204,45 @@ export interface BroadcastInput {
   winner_test_percent?: number;
 }
 
+export interface AutomationStep {
+  id?: string;
+  position?: number;
+  kind: "wait" | "send";
+  delay_minutes: number;
+  subject?: string;
+  html?: string;
+  text?: string;
+  template_id?: string;
+}
+
+export interface Automation {
+  id: string;
+  org_id: string;
+  name: string;
+  audience_id: string;
+  audience_name: string;
+  from_email: string;
+  from_name: string;
+  topic: string;
+  status: "draft" | "active" | "paused";
+  steps: AutomationStep[];
+  enrolled: number;
+  active: number;
+  completed: number;
+  failed: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface AutomationInput {
+  name: string;
+  audience_id: string;
+  from: string;
+  from_name?: string;
+  topic?: string;
+  steps: AutomationStep[];
+}
+
 export interface SegmentFilters {
   attributes?: Record<string, string>;
   source?: string;

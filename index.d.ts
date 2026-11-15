@@ -196,10 +196,39 @@ export interface BroadcastInput {
   variant_b_html?: string;
   variant_b_text?: string;
   variant_split_percent?: number;
+  segment_id?: string;
+  topic?: string;
   winner_enabled?: boolean;
   winner_metric?: "open" | "click";
   winner_wait_minutes?: number;
   winner_test_percent?: number;
+}
+
+export interface SegmentFilters {
+  attributes?: Record<string, string>;
+  source?: string;
+  opened_within_days?: number;
+  clicked_within_days?: number;
+  include_unsubscribed?: boolean;
+}
+
+export interface Segment {
+  id: string;
+  org_id: string;
+  name: string;
+  description: string;
+  audience_id: string;
+  audience_name: string;
+  filters: SegmentFilters;
+  contacts: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ContactTopic {
+  topic: string;
+  subscribed: boolean;
+  updated_at: string | null;
 }
 
 export interface BroadcastVariantAnalytics {
@@ -229,6 +258,9 @@ export interface Broadcast {
   name: string;
   audience_id: string;
   audience_name: string;
+  segment_id: string;
+  segment_name: string;
+  topic: string;
   template_id: string;
   from_email: string;
   from_name: string;

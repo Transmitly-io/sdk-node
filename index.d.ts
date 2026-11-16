@@ -200,6 +200,7 @@ export interface BroadcastInput {
   variant_c_html?: string;
   variant_c_text?: string;
   variant_c_split_percent?: number;
+  blocks?: Array<Record<string, unknown>>;
   segment_id?: string;
   topic?: string;
   winner_enabled?: boolean;
@@ -345,6 +346,7 @@ export interface Broadcast {
   variant_c_html: string;
   variant_c_text: string;
   variant_c_split_percent: number;
+  blocks: Array<Record<string, unknown>>;
   winner_enabled: boolean;
   winner_metric: "open" | "click";
   winner_wait_minutes: number;

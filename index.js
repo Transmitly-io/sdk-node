@@ -134,7 +134,21 @@ export class Transmitly {
     if (!payload?.from) throw new TypeError("from is required");
     if (!payload?.to) throw new TypeError("to is required");
     if (!payload?.subject) throw new TypeError("subject is required");
-    if (!payload?.html && !payload?.text) throw new TypeError("html or text is required");
+    if (payload?.react) {
+      let render;
+      try {
+        ({ render } = await import("@react-email/render"));
+      } catch {
+        throw new Error("react payload requires the optional @react-email/render package");
+      }
+      const [html, text] = await Promise.all([
+        render(payload.react),
+        render(payload.react, { plainText: true }),
+      ]);
+      const { react, ...rest } = payload;
+      payload = { ...rest, html, text };
+    }
+    if (!payload?.html && !payload?.text) throw new TypeError("html, text or react is required");
     const key = idempotencyKey ?? crypto.randomUUID();
     return this.#request("POST", "/v1/emails", { body: payload, headers: { "Idempotency-Key": key } });
   }

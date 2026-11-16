@@ -3,7 +3,8 @@
 Dependency-free Node.js client for the Transmitly API. Requires Node 18+ (global `fetch`).
 
 ```bash
-npm install @transmitly/sdk
+# from the platform repository
+npm install ./sdk/node
 ```
 
 ```js

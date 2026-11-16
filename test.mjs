@@ -79,5 +79,5 @@ test("verifies webhook signatures and rejects tampering and replay", () => {
 
 test("validates required send fields locally", async () => {
   const tx = new Transmitly({ apiKey: "txk_test", baseUrl: "http://127.0.0.1:1" });
-  await assert.rejects(() => tx.emails.send({ from: "a@example.com", to: "b@example.net", subject: "Hi" }), /html or text/);
+  await assert.rejects(() => tx.emails.send({ from: "a@example.com", to: "b@example.net", subject: "Hi" }), /html, text or react/);
 });
